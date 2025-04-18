@@ -1,4 +1,4 @@
-// api/server.js
+
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -9,17 +9,28 @@ import authRoutes from './routes/auth.js';
 import journalRoutes from './routes/journal.js';
 import journalEntryRoutes from './routes/journalEntry.js';
 
-
-
 dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
 
+// Allow both localhost and deployed Vercel frontend
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://moodjournal-nine.vercel.app',
+];
+
 app.use(cors({
-  origin: 'http://localhost:3000', // frontend origin
-  credentials: true               // allow cookies
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
