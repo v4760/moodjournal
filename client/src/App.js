@@ -8,7 +8,8 @@ import Dashboard   from './pages/Dashboard';
 import CreateEntry from './pages/CreateEntry';
 import EditEntry   from './pages/EditEntry';
 
-// Send cookies on all requests
+// Set base URL to your Render backend and send cookies on all requests
+axios.defaults.baseURL = 'https://moodjournal-asuw.onrender.com';
 axios.defaults.withCredentials = true;
 
 // Guard for protected routes with debug logs
@@ -17,8 +18,8 @@ function ProtectedRoute({ children }) {
   const loc = useLocation();
 
   useEffect(() => {
-    console.log('[ProtectedRoute] ping:', 'http://localhost:4000/ping');
-    axios.get('http://localhost:4000/ping')
+    console.log('[ProtectedRoute] ping:', '/ping');
+    axios.get('/ping')
       .then(() => {
         console.log('[ProtectedRoute] ping success');
         setOk(true);
