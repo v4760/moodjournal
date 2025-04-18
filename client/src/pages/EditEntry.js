@@ -14,7 +14,7 @@ export default function EditEntry() {
       .then(res => setMoods(res.data))
       .catch(() => setMessage('Failed to load moods'));
 
-    axios.get(/api/journal/${id})
+    axios.get(`/api/journal/${id}`)
       .then(res => {
         const e = res.data;
         setForm({ title: e.title, content: e.content, mood_id: e.mood_id });
@@ -29,7 +29,7 @@ export default function EditEntry() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.put(/api/journal/${id}, form);
+      await axios.put(`/api/journal/${id}`, form);
       navigate('/dashboard');
     } catch (err) {
       setMessage(err.response?.data?.message || 'Update failed');
@@ -39,19 +39,27 @@ export default function EditEntry() {
   return (
     <div className="min-h-screen relative bg-gradient-to-b from-gray-700 via-blue-900 to-gray-900 flex items-center justify-center overflow-hidden">
       {/* Animated raindrops */}
-      {Array.from({ length: 30 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute bg-white opacity-20 rounded-full"
-          style={{
-            width: ${Math.random() * 2 + 1}px,
-            height: ${Math.random() * 15 + 10}px,
-            top: ${Math.random() * 100}%,
-            left: ${Math.random() * 100}%,
-            animation: rain ${Math.random() * 2 + 1.5}s linear infinite,
-          }}
-        ></div>
-      ))}
+      {Array.from({ length: 30 }).map((_, i) => {
+        const width = Math.random() * 2 + 1;
+        const height = Math.random() * 15 + 10;
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 2 + 1.5;
+
+        return (
+          <div
+            key={i}
+            className="absolute bg-white opacity-20 rounded-full"
+            style={{
+              width: `${width}px`,
+              height: `${height}px`,
+              top: `${top}%`,
+              left: `${left}%`,
+              animation: `rain ${duration}s linear infinite`,
+            }}
+          ></div>
+        );
+      })}
 
       {/* Form Card */}
       <div className="bg-white shadow-2xl rounded-xl px-8 py-10 w-[90%] max-w-lg z-10">
