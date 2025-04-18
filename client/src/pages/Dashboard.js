@@ -9,14 +9,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get('/api/journal')
+      .get('/api/routes/journal')
       .then((res) => setEntries(res.data))
       .catch(() => setMessage('Failed to load entries'));
   }, []);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/journal/${id}`);
+      await axios.delete(`/api/routes/journal/${id}`);
       setEntries((prev) => prev.filter((e) => e.entry_id !== id));
     } catch {
       setMessage('Delete failed');
