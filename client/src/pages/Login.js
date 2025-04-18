@@ -15,7 +15,7 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:4000/api/login', form, {
+      const res = await axios.post('/api/login', form, {
         withCredentials: true,
       });
       navigate('/dashboard');
