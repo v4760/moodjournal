@@ -10,11 +10,11 @@ export default function EditEntry() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/journal/moods')
+    axios.get('/api/journal/moods')
       .then(res => setMoods(res.data))
       .catch(() => setMessage('Failed to load moods'));
 
-    axios.get(`http://localhost:4000/api/journal/${id}`)
+    axios.get(/api/journal/${id})
       .then(res => {
         const e = res.data;
         setForm({ title: e.title, content: e.content, mood_id: e.mood_id });
@@ -29,7 +29,7 @@ export default function EditEntry() {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:4000/api/journal/${id}`, form);
+      await axios.put(/api/journal/${id}, form);
       navigate('/dashboard');
     } catch (err) {
       setMessage(err.response?.data?.message || 'Update failed');
@@ -44,11 +44,11 @@ export default function EditEntry() {
           key={i}
           className="absolute bg-white opacity-20 rounded-full"
           style={{
-            width: `${Math.random() * 2 + 1}px`,
-            height: `${Math.random() * 15 + 10}px`,
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animation: `rain ${Math.random() * 2 + 1.5}s linear infinite`,
+            width: ${Math.random() * 2 + 1}px,
+            height: ${Math.random() * 15 + 10}px,
+            top: ${Math.random() * 100}%,
+            left: ${Math.random() * 100}%,
+            animation: rain ${Math.random() * 2 + 1.5}s linear infinite,
           }}
         ></div>
       ))}
