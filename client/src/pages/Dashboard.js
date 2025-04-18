@@ -8,15 +8,16 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/journal')
-      .then(res => setEntries(res.data))
+    axios
+      .get('/api/journal')
+      .then((res) => setEntries(res.data))
       .catch(() => setMessage('Failed to load entries'));
   }, []);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(/api/journal/${id});
-      setEntries(prev => prev.filter(e => e.entry_id !== id));
+      await axios.delete(`/api/journal/${id}`);
+      setEntries((prev) => prev.filter((e) => e.entry_id !== id));
     } catch {
       setMessage('Delete failed');
     }
@@ -37,7 +38,8 @@ export default function Dashboard() {
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-start justify-center p-6"
       style={{
-        backgroundImage: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80'),
+        backgroundImage:
+          'url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80")',
       }}
     >
       <div className="w-full max-w-4xl bg-white/80 backdrop-blur-md rounded-lg p-6 shadow-lg mt-10">
@@ -69,21 +71,22 @@ export default function Dashboard() {
         {message && <div className="mb-4 text-red-600">{message}</div>}
 
         <ul>
-          {entries.map(e => (
-            <li
-              key={e.entry_id}
-              className="bg-white rounded-xl shadow-md p-6 mb-4"
-            >
+          {entries.map((e) => (
+            <li key={e.entry_id} className="bg-white rounded-xl shadow-md p-6 mb-4">
               <div className="flex justify-between items-start">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">{e.title}</h3>
-                  <p className="text-gray-600 mb-1"><strong>Mood:</strong> {e.mood?.mood_name}</p>
-                  <p className="text-gray-600 mb-2"><strong>Weather:</strong> {e.weather_info}</p>
+                  <p className="text-gray-600 mb-1">
+                    <strong>Mood:</strong> {e.mood?.mood_name}
+                  </p>
+                  <p className="text-gray-600 mb-2">
+                    <strong>Weather:</strong> {e.weather_info}
+                  </p>
                   <p className="text-gray-700">{e.content}</p>
                 </div>
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => navigate(/edit/${e.entry_id})}
+                    onClick={() => navigate(`/edit/${e.entry_id}`)}
                     className="text-blue-600 hover:text-blue-800"
                   >
                     Edit
