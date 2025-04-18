@@ -72,4 +72,53 @@ function CreateEntry() {
       ))}
 
       {/* Title */}
-      <h1
+      <h1 className="text-4xl font-bold text-blue-700 mb-8 z-10">Write from the mountains...</h1>
+
+      {/* Form Card */}
+      <div className="w-full max-w-2xl bg-white shadow-2xl rounded-xl px-8 py-10 z-10">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Create New Journal Entry</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="title"
+            placeholder="Title"
+            value={form.title}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+          />
+          <textarea
+            name="content"
+            placeholder="What’s on your mind?"
+            value={form.content}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded-lg h-32 resize-none focus:ring-2 focus:ring-blue-400 outline-none"
+          />
+          <select
+            name="mood_id"
+            value={form.mood_id}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+          >
+            <option value="">Select Mood</option>
+            {moods.map((mood) => (
+              <option key={mood.mood_id} value={mood.mood_id}>
+                {mood.mood_name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition"
+          >
+            Save Entry
+          </button>
+        </form>
+        {message && <p className="text-center text-green-700 mt-4">{message}</p>}
+      </div>
+    </div>
+  );
+}
+
+export default CreateEntry;
