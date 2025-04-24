@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes rain {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes steam {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.steam {
+  animation: steam 3s ease-in-out infinite;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+}
